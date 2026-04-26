@@ -31,6 +31,8 @@ npx repoviz analyze <repo-path>
 
 ## Usage
 
+### Analyze
+
 ```bash
 # Analyze a repo and print KitGraph JSON to stdout
 repoviz analyze ./my-claude-workspace
@@ -47,6 +49,53 @@ repoviz analyze ./my-repo --definitions ./my-definitions/
 # Suppress progress messages
 repoviz analyze ./my-repo --quiet
 ```
+
+### Visualize
+
+After generating a `graph.json`, open it in an interactive browser visualization:
+
+```bash
+# Open in the browser (starts a local server)
+repoviz serve graph.json
+
+# Serve on a specific port without auto-opening
+repoviz serve graph.json --port 4000 --no-open
+
+# Generate a standalone HTML file (no server required)
+repoviz bundle graph.json --output my-workspace-viz.html
+
+# Full pipeline: analyze then visualize
+repoviz analyze ./my-workspace --output graph.json
+repoviz serve graph.json
+```
+
+#### `repoviz serve` options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--port <n>` | random | Bind to a specific port |
+| `--no-open` | false | Start server without opening browser |
+| `--quiet` | false | Only print the server URL, suppress other output |
+
+**Exit codes**: `0` clean stop, `1` file not found, `2` invalid JSON, `3` server error
+
+#### `repoviz bundle` options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `--output <file>` | `graph.html` | Output path for the HTML file |
+| `--quiet` | false | Suppress output; only errors go to stderr |
+
+**Exit codes**: `0` success, `1` file not found, `2` invalid JSON, `3` write error
+
+The generated HTML file works offline — open it directly from your filesystem with `file://`. All assets (D3.js, app code, graph data) are inlined. The visualization includes:
+
+- **Force-directed graph** — nodes attract and repel naturally; drag to reposition
+- **Visual encoding** — each node category has a unique color + icon; each edge type has a unique color + line style
+- **Tooltip** — hover any node or edge for quick details
+- **Sidebar** — click a node for full metadata and relationship list
+- **Filters** — filter by harness or category; text search by node name
+- **Legend** — always-visible legend explaining all visual encodings
 
 ## Output Format
 
@@ -153,7 +202,17 @@ No core code change required — the engine loads all `.yml` files from the defi
 
 ```bash
 npm install
+
+# Build CLI + engine
 npm run build
+
+# Build browser viewer bundle (required for serve/bundle commands)
+npm run build:viewer
+
+# Build everything
+npm run build:all
+
+# Run tests
 npm test
 ```
 

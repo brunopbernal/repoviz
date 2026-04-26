@@ -20,6 +20,13 @@
     "noImplicitReturns": true,
     "exactOptionalPropertyTypes": false
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "include": [
+    "src/cli/**/*.ts",
+    "src/engine/**/*.ts",
+    "src/harnesses/**/*.ts",
+    "src/output/**/*.ts",
+    "src/server/**/*.ts",
+    "src/bundler/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "tests", "src/viewer/**", "src/specify_cli/**"]
 }
