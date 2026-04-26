@@ -83,6 +83,30 @@ Every feature that adds a new kit adapter or visualization type MUST include:
 
 Performance target: Full analysis and render of a 500-file repo in under 5s.
 
+### Navigation — Graphify
+
+Before implementing features that touch multiple subsystems, consult the
+Graphify knowledge graph at `.graphify/` to avoid duplicating existing
+components, services, or abstractions. Specifically:
+
+- Read `.graphify/GRAPH_REPORT.md` to identify god nodes and communities
+  before proposing architectural changes.
+- For frontend/viewer changes: use Graphify to locate the correct viewer
+  module **before** editing; use Playwright (`npm run test:visual`) to
+  validate visual correctness **after** editing.
+- A task that modifies frontend files is NOT complete until
+  `npm run test:visual` passes and screenshots are reviewed.
+- Update the graph after significant code changes with `npm run graphify`.
+
+### Validation Gates
+
+| Change type | Required before merge |
+|---|---|
+| New kit adapter (harness) | `npm test` passes; example fixture added |
+| Viewer / UI change | `npm run test:visual` passes; screenshot inspected |
+| CLI / engine change | `npm test` + `npm run test:integration` pass |
+| Any multi-file change | `.graphify/GRAPH_REPORT.md` consulted first |
+
 ## Governance
 
 This constitution supersedes all other development guidelines.
@@ -95,4 +119,4 @@ Version bump rules:
 All specs and plans MUST reference the applicable principle(s) they implement.
 The constitution is reviewed whenever a new kit adapter type is introduced.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-26 | **Last Amended**: 2026-04-26
+**Version**: 1.1.0 | **Ratified**: 2026-04-26 | **Last Amended**: 2026-04-26

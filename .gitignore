@@ -57,3 +57,13 @@ Thumbs.db
 test-results/
 playwright-report/
 graph.json
+
+# Graphify — commit only GRAPH_REPORT.md (context for Claude)
+# graph.json and graph.html contain absolute paths; session files are transient
+.graphify/graph.json
+.graphify/graph.html
+.graphify/.graphify_analysis.json
+.graphify/branch.json
+.graphify/worktree.json
+.graphify/needs_update
+graphify-out/

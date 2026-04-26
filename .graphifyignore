@@ -1,0 +1,38 @@
+# Generated / build outputs
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+
+# Test results and Playwright artifacts
+test-results/
+playwright-report/
+coverage/
+
+# Graphify own output
+graphify-out/
+.graphify/
+
+# Environment and secrets
+.env
+.env.*
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+serve.log
+graph.json
+
+# Spec-kit infrastructure (local-only, not part of repoviz source)
+.specify/
+specs/
+
+# Lock files (not semantic)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

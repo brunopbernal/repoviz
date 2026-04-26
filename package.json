@@ -32,7 +32,9 @@
     "build:all": "npm run build:viewer && tsc",
     "prepublishOnly": "npm run build:all",
     "test:visual": "playwright test --config playwright.config.ts",
-    "test:visual:headed": "playwright test --config playwright.config.ts --headed"
+    "test:visual:headed": "playwright test --config playwright.config.ts --headed",
+    "graphify": "graphifyy detect . --out .graphify/graph.json && graphifyy cluster-only .",
+    "graphify:watch": "graphifyy watch ."
   },
   "keywords": [
     "ai",
@@ -69,6 +71,7 @@
     "@typescript-eslint/parser": "^7.0.0",
     "esbuild": "^0.24.0",
     "eslint": "^8.57.0",
+    "graphifyy": "^0.4.33",
     "prettier": "^3.2.0",
     "tsx": "^4.19.0",
     "typescript": "^5.4.0",
