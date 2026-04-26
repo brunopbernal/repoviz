@@ -1,0 +1,67 @@
+{
+  "name": "repoviz",
+  "version": "0.1.0",
+  "description": "Static analysis engine for AI kit repositories — visualizes agents, skills, hooks, and their relationships",
+  "type": "module",
+  "bin": {
+    "repoviz": "./dist/cli/index.js"
+  },
+  "main": "./dist/engine/analyzer.js",
+  "types": "./dist/engine/analyzer.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/engine/analyzer.js",
+      "types": "./dist/engine/analyzer.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "definitions"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write src tests",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "visualization",
+    "claude-code",
+    "copilot",
+    "cursor",
+    "static-analysis"
+  ],
+  "author": "Bruno Bernal",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brunopbernal/repoviz"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "fast-glob": "^3.3.2",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

@@ -1,0 +1,38 @@
+id: cursor
+name: Cursor
+version: "1.0.0"
+
+detection_signals:
+  - path: .cursor
+  - path: .cursorrules
+  - glob: ".cursor/**"
+    required: true
+
+primitive_mappings:
+  - native_type: rule
+    category: context
+    glob: ".cursor/rules/**/*.{md,mdc}"
+    description: Cursor rule files (project-level instructions)
+
+  - native_type: rule
+    category: context
+    glob: ".cursorrules"
+    description: Legacy Cursor rules file (root-level)
+
+  - native_type: config
+    category: config
+    glob: ".cursor/settings.json"
+    description: Cursor workspace settings
+
+relationship_patterns:
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a local file
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file
+
+  - type: references
+    pattern: "@([\\w\\-/\\.]+)"
+    description: "@-mention reference to a file or symbol"

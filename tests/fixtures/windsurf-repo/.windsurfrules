@@ -1,0 +1,12 @@
+---
+name: Windsurf Rules
+description: Root-level Windsurf rules for this project
+---
+
+# Windsurf Rules
+
+## Behavior
+
+- Always run tests before committing
+- Use the workflow in `.windsurf/workflows/deploy.md` for deployments
+- Follow the coding standards defined in this file

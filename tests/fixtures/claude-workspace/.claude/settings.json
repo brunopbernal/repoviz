@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": ["Bash(git:*)", "Read", "Write", "Edit"],
+    "deny": []
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

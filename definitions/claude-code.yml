@@ -1,0 +1,67 @@
+id: claude-code
+name: Claude Code
+version: "1.0.0"
+
+detection_signals:
+  - path: .claude
+    required: true
+  - path: CLAUDE.md
+  - path: .claude/settings.json
+  - path: .claude/settings.local.json
+
+primitive_mappings:
+  - native_type: skill
+    category: command
+    glob: ".claude/skills/**/*.md"
+    description: Reusable workflow invokable via /command-name
+
+  - native_type: agent
+    category: agent
+    glob: ".claude/agents/**/*.md"
+    description: Specialized subagent for delegation
+
+  - native_type: hook
+    category: hook
+    glob: ".claude/hooks/**/*.{sh,js,ts,py}"
+    description: Event-driven hook executed on tool events
+
+  - native_type: context
+    category: context
+    glob: "CLAUDE.md"
+    description: Root context file loaded by Claude Code
+
+  - native_type: context
+    category: context
+    glob: "**/CLAUDE.md"
+    description: Directory-level context file
+
+  - native_type: config
+    category: config
+    glob: ".claude/settings.json"
+    description: Claude Code workspace settings
+
+  - native_type: config
+    category: config
+    glob: ".claude/settings.local.json"
+    description: Claude Code local settings (user-specific)
+
+relationship_patterns:
+  - type: references
+    pattern: "@([\\w\\-/\\.]+)"
+    description: "@-mention of another kit file"
+
+  - type: reads
+    pattern: "(?:Read|Cat|Head|Tail)\\s+([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))"
+    description: Read tool invocation referencing a file path
+
+  - type: edits
+    pattern: "(?:Edit|Write|NotebookEdit)\\s+([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))"
+    description: Edit/Write tool invocation referencing a file path
+
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a file path in Markdown
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file

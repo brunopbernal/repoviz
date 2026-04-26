@@ -1,0 +1,17 @@
+---
+name: Project Rules
+description: Project-level Cursor rules and conventions
+---
+
+# Project Rules
+
+## Code Style
+
+- TypeScript strict mode required
+- No `any` types allowed
+- Use descriptive variable names
+
+## File Organization
+
+- Source files go in `src/`
+- Tests mirror the source structure in `tests/`

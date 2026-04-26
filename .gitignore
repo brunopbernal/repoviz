@@ -1,7 +1,12 @@
 # Spec-kit source (fica só local — não vai para o repo)
-/src/
+/src/specify_cli/
 /templates/
-/tests/
+/tests/__init__.py
+/tests/conftest.py
+/tests/extensions/
+/tests/hooks/
+/tests/integrations/
+/tests/test_*.py
 /docs/
 /scripts/
 /extensions/

@@ -1,0 +1,44 @@
+id: gemini-cli
+name: Gemini CLI (Google)
+version: "1.0.0"
+
+detection_signals:
+  - path: .gemini
+  - path: GEMINI.md
+  - glob: ".gemini/**"
+    required: true
+
+primitive_mappings:
+  - native_type: context
+    category: context
+    glob: "GEMINI.md"
+    description: Root context file for Gemini CLI
+
+  - native_type: context
+    category: context
+    glob: "**/GEMINI.md"
+    description: Directory-level context file
+
+  - native_type: command
+    category: command
+    glob: ".gemini/commands/**/*.md"
+    description: Gemini CLI custom command definitions
+
+  - native_type: context
+    category: context
+    glob: ".gemini/context/**/*.{md,txt}"
+    description: Gemini CLI context documents
+
+  - native_type: config
+    category: config
+    glob: ".gemini/settings.{json,yml,yaml}"
+    description: Gemini CLI settings
+
+relationship_patterns:
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a local file
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file

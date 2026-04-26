@@ -1,0 +1,34 @@
+id: codex-cli
+name: Codex CLI (OpenAI)
+version: "1.0.0"
+
+detection_signals:
+  - path: AGENTS.md
+  - path: .codex
+  - glob: "AGENTS.md"
+    required: true
+
+primitive_mappings:
+  - native_type: agent
+    category: agent
+    glob: "AGENTS.md"
+    description: Root agent instructions file for Codex CLI
+
+  - native_type: agent
+    category: agent
+    glob: "**/AGENTS.md"
+    description: Directory-level agent instructions file
+
+  - native_type: config
+    category: config
+    glob: ".codex/**/*.{json,yml,yaml}"
+    description: Codex CLI configuration files
+
+relationship_patterns:
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a local file
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file

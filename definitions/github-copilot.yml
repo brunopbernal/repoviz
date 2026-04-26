@@ -1,0 +1,29 @@
+id: github-copilot
+name: GitHub Copilot
+version: "1.0.0"
+
+detection_signals:
+  - path: .github/copilot-instructions.md
+  - path: .github/copilot
+  - glob: ".github/copilot-instructions.md"
+    required: true
+
+primitive_mappings:
+  - native_type: instructions
+    category: context
+    glob: ".github/copilot-instructions.md"
+    description: Repository-level Copilot custom instructions
+
+  - native_type: instructions
+    category: context
+    glob: ".github/copilot/**/*.md"
+    description: Copilot directory-level instruction files
+
+relationship_patterns:
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a local file
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file

@@ -1,0 +1,39 @@
+id: windsurf
+name: Windsurf (Codeium)
+version: "1.0.0"
+
+detection_signals:
+  - path: .windsurf
+  - path: .windsurfrules
+  - glob: ".windsurf/**"
+    required: true
+
+primitive_mappings:
+  - native_type: workflow
+    category: command
+    glob: ".windsurf/workflows/**/*.{md,yaml,yml}"
+    description: Windsurf workflow definitions (multi-step automated tasks)
+
+  - native_type: rule
+    category: context
+    glob: ".windsurfrules"
+    description: Root-level Windsurf rules file
+
+  - native_type: rule
+    category: context
+    glob: ".windsurf/rules/**/*.{md,txt}"
+    description: Windsurf directory-level rule files
+
+  - native_type: config
+    category: config
+    glob: ".windsurf/settings.{json,yml,yaml}"
+    description: Windsurf workspace settings
+
+relationship_patterns:
+  - type: references
+    pattern: "`([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))`"
+    description: Inline code reference to a local file
+
+  - type: references
+    pattern: "\\[(?:[^\\]]+)\\]\\(([\\w\\-./]+\\.(?:md|json|yml|yaml|ts|js|sh|py))\\)"
+    description: Markdown link to a local file

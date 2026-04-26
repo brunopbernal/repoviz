@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KitGraph",
+  "description": "Output of the repoviz Core Analysis Engine",
+  "type": "object",
+  "required": ["summary", "harnesses", "nodes", "edges"],
+  "properties": {
+    "summary": {
+      "type": "object",
+      "required": ["repo_path", "detected_harnesses", "total_files_scanned", "classified_files", "unclassified_files", "relationship_count", "analysis_time_ms"],
+      "properties": {
+        "repo_path": { "type": "string" },
+        "detected_harnesses": { "type": "array", "items": { "type": "string" } },
+        "total_files_scanned": { "type": "integer", "minimum": 0 },
+        "classified_files": { "type": "integer", "minimum": 0 },
+        "unclassified_files": { "type": "integer", "minimum": 0 },
+        "relationship_count": { "type": "integer", "minimum": 0 },
+        "analysis_time_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "harnesses": {
+      "type": "object",
+      "description": "Maps harness ID to array of node IDs belonging to that harness",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "category", "native_type", "harness", "display_name"],
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["agent", "command", "hook", "context", "template", "config", "unclassified"]
+          },
+          "native_type": { "type": "string" },
+          "harness": { "type": "string" },
+          "display_name": { "type": "string" },
+          "description": { "type": ["string", "null"] },
+          "metadata": { "type": "object" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "target", "type", "evidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["reads", "executes", "creates", "edits", "references", "unresolved"]
+          },
+          "evidence": { "type": "string" }
+        }
+      }
+    }
+  }
+}
