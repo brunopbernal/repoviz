@@ -1,0 +1,47 @@
+# Spec-kit source (fica só local — não vai para o repo)
+/src/
+/templates/
+/tests/
+/docs/
+/scripts/
+/extensions/
+/integrations/
+/presets/
+/workflows/
+/newsletters/
+/media/
+/.devcontainer/
+/.github/
+
+# Spec-kit meta files
+AGENTS.md
+CHANGELOG.md
+CITATION.cff
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+DEVELOPMENT.md
+SECURITY.md
+SUPPORT.md
+spec-driven.md
+spec-kit.code-workspace
+pyproject.toml
+.gitattributes
+.markdownlint-cli2.jsonc
+.zenodo.json
+
+# Python / uv
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Node (para quando implementarmos o frontend)
+node_modules/
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
