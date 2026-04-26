@@ -52,3 +52,8 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
+
+# Playwright test results (artifacts, not source)
+test-results/
+playwright-report/
+graph.json

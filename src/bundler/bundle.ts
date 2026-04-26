@@ -14,12 +14,19 @@ export function generateHTML(
   viewerBundleJS: string,
   templateHTML: string
 ): string {
-  const dataScript = `<script>window.__REPOVIZ_DATA__ = ${JSON.stringify(graphData)};</script>`;
-  const bundleScript = `<script>${viewerBundleJS}</script>`;
+  // Escape </script> inside the inlined JS so the HTML parser doesn't close
+  // the <script> tag prematurely (common in minified D3 source).
+  const safeBundle = viewerBundleJS.replace(/<\/script>/gi, "<\\/script>");
+  const safeData = JSON.stringify(graphData).replace(/<\/script>/gi, "<\\/script>");
 
+  const dataScript = `<script>window.__REPOVIZ_DATA__ = ${safeData};</script>`;
+  const bundleScript = `<script>${safeBundle}</script>`;
+
+  // Use function replacements to prevent special $ sequences in the bundle
+  // (e.g. $' $& $`) from being interpreted as replacement patterns.
   return templateHTML
-    .replace("<!-- DATA_INJECTION_POINT -->", dataScript)
-    .replace("<!-- BUNDLE_INJECTION_POINT -->", bundleScript);
+    .replace("<!-- DATA_INJECTION_POINT -->", () => dataScript)
+    .replace("<!-- BUNDLE_INJECTION_POINT -->", () => bundleScript);
 }
 
 export interface BundleAssets {

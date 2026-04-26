@@ -96,10 +96,14 @@ export function initGraph(data: KitGraph): InitGraphResult {
   const nodeIds = new Set(graphNodes.map((n) => n.id));
   const graphEdges = buildGraphEdges(data.edges, nodeIds);
 
-  // Filter edges whose source exists in graph (target may be unresolved)
-  const validEdges = graphEdges.filter((e) =>
-    nodeIds.has(typeof e.source === "string" ? e.source : (e.source as GraphNode).id)
-  );
+  // Only pass edges to D3 where BOTH endpoints exist in the simulation.
+  // Unresolved edges (target not in graph) are shown in the sidebar but
+  // cannot be given to forceLink — D3 throws "node not found" otherwise.
+  const validEdges = graphEdges.filter((e) => {
+    const srcId = typeof e.source === "string" ? e.source : (e.source as GraphNode).id;
+    const tgtId = typeof e.target === "string" ? e.target : (e.target as GraphNode).id;
+    return nodeIds.has(srcId) && nodeIds.has(tgtId);
+  });
 
   // Setup arrow marker defs
   setupArrowDefs(svg);
